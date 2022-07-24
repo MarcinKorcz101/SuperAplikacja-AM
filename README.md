@@ -12,3 +12,6 @@ Aplikacja do umawiania spotkań szachowych przy tradycyjnej szachownicy
 - ranking ogólny w aplikacji
 - SMS
 - Energooszczędność
+
+### Linki
+[Trello](https://trello.com/b/Myp40aBX/chessmeet)
