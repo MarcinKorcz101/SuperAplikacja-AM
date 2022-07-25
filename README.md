@@ -8,6 +8,7 @@ Aplikacja do umawiania spotkań szachowych przy tradycyjnej szachownicy
 - Historia meczy
 - podłączenie kalendarza/serwisu meteo
 - API LICHESS!!
+- Zegar dla graczy podczas prowadzenia meczu. Co pozwoli nam na zbieranie statystyk odnośnie wygranej/remisu/przegranej (dodatkowo typ zwyciestwa na czas, czy przez mata)
 ## Ficzery:
 - ranking ogólny w aplikacji
 - SMS
