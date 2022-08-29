@@ -8,23 +8,25 @@
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.am_144446_145276.UserProfileFragment"
-        android:label="fragment_user_profile"
+        android:label="User Profile"
         tools:layout="@layout/fragment_user_profile" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.am_144446_145276.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_addMeetingFragment"
-            app:destination="@id/addMeetingFragment" />
-    </fragment>
+        android:label="Upcoming meetings"
+        tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/addMeetingFragment"
         android:name="com.example.am_144446_145276.AddMeetingFragment"
-        android:label="fragment_add_meeting"
+        android:label="Add meeting"
         tools:layout="@layout/fragment_add_meeting" />
+    <fragment
+        android:id="@+id/joinMeetingFragment"
+        android:name="com.example.am_144446_145276.JoinMeetingFragment"
+        android:label="Join meeting"
+        tools:layout="@layout/fragment_join_meeting">
+        <action
+            android:id="@+id/action_joinMeetingFragment_to_addMeetingFragment"
+            app:destination="@id/addMeetingFragment" />
+    </fragment>
 </navigation>
