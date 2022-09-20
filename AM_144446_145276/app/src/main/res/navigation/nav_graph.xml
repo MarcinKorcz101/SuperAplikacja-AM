@@ -14,7 +14,11 @@
         android:id="@+id/mainFragment"
         android:name="com.example.am_144446_145276.MainFragment"
         android:label="Upcoming meetings"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_meetingInfoFragment"
+            app:destination="@id/meetingInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addMeetingFragment"
         android:name="com.example.am_144446_145276.AddMeetingFragment"
@@ -28,5 +32,13 @@
         <action
             android:id="@+id/action_joinMeetingFragment_to_addMeetingFragment"
             app:destination="@id/addMeetingFragment" />
+        <action
+            android:id="@+id/action_joinMeetingFragment_to_meetingInfoFragment"
+            app:destination="@id/meetingInfoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/meetingInfoFragment"
+        android:name="com.example.am_144446_145276.MeetingInfoFragment"
+        android:label="fragment_meeting_info"
+        tools:layout="@layout/fragment_meeting_info" />
 </navigation>
