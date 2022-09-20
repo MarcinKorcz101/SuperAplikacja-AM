@@ -66,3 +66,25 @@ fun genMeetingList(): ArrayList<Meeting> {
     ))
     return tmpList
 }
+fun genMeetingList2(): ArrayList<Meeting> {
+    val tmpList : ArrayList<Meeting> = ArrayList<Meeting>()
+    for (i in 1..3){
+        tmpList.add(Meeting(
+            3,
+            "Wojtek",
+            "W Bogdanowie, bo gdzie"
+        ))
+        tmpList.add(Meeting(
+            3,
+            "Hugo Boss",
+            "W Hugolandii, bo gdzie"
+        ))
+        tmpList.add(Meeting(
+            3,
+            "typ z lego",
+            "W Legolandzie, bo gdzie"
+        ))
+    }
+
+    return tmpList
+}

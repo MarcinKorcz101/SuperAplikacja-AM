@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
@@ -29,7 +30,7 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: MyMeetingsAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var meetingsArrayList: ArrayList<Meeting>
+//    private lateinit var meetingsArrayList: ArrayList<Meeting>
 
     lateinit var meetings : ArrayList<Meeting>
 
@@ -39,9 +40,6 @@ class MainFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
-
 
     }
 
@@ -62,6 +60,13 @@ class MainFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         adapter = MyMeetingsAdapter(meetings)
         recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                //TODO: TUTAJ ZMIANA FRAGMENTU
+                println(position)
+            }
+
+        })
     }
 
     companion object {

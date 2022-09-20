@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.am_144446_145276.data.Meeting
+import com.example.am_144446_145276.data.genMeetingList
+import com.example.am_144446_145276.data.genMeetingList2
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,12 @@ class JoinMeetingFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var adapter: MyMeetingsAdapter
+    private lateinit var recyclerView: RecyclerView
+//    private lateinit var meetingsArrayList: ArrayList<Meeting>
+
+    lateinit var meetings : ArrayList<Meeting>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +47,25 @@ class JoinMeetingFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_join_meeting, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        meetings = genMeetingList2()
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.MeetingsNearbyList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = MyMeetingsAdapter(meetings)
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                //TODO: TUTAJ ZMIANA FRAGMENTU
+                println(position)
+            }
+
+        })
+    }
+
 
     companion object {
         /**
