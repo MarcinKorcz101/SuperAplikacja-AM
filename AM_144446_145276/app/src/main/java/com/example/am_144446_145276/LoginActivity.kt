@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import org.json.JSONArray
+import org.json.JSONTokener
+import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +17,20 @@ class LoginActivity : AppCompatActivity() {
         val userName = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val loginButton = findViewById<Button>(R.id.login)
+        lateinit var jsonArray: JSONArray
+
+        val thread = Thread(){
+            run {
+                val body = URL("http://theruddy0709.net:3000/games").readText()
+                jsonArray = JSONTokener(body).nextValue() as JSONArray
+            }
+            runOnUiThread(){
+                println(jsonArray)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
         loginButton.setOnClickListener(){
             val nick = userName.text.toString()
@@ -22,8 +39,7 @@ class LoginActivity : AppCompatActivity() {
             println(nick)
             println(pass)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            thread.start()
         }
     }
 }
