@@ -1,10 +1,14 @@
 package com.example.am_144446_145276
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import com.example.am_144446_145276.helpers.SharedPreferencesHelper
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +39,18 @@ class UserProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val logoutButton = view.findViewById<Button>(R.id.logout_button)
+
+        logoutButton.setOnClickListener() {
+            context?.let { SharedPreferencesHelper(it) }
+                ?.putLoggedUser(JSONObject("""{username: ""}"""))
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
