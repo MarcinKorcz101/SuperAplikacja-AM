@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
@@ -64,6 +65,7 @@ class MainFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 //TODO: TUTAJ ZMIANA FRAGMENTU
                 println(position)
+                Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_meetingInfoFragment)
             }
 
         })

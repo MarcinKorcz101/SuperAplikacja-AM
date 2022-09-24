@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
@@ -45,7 +47,11 @@ class JoinMeetingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_join_meeting, container, false)
+        val view = inflater.inflate(R.layout.fragment_join_meeting, container, false)
+        view.findViewById<Button>(R.id.create_meeting).setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_joinMeetingFragment_to_addMeetingFragment)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +67,7 @@ class JoinMeetingFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 //TODO: TUTAJ ZMIANA FRAGMENTU
                 println(position)
+                Navigation.findNavController(view).navigate(R.id.action_joinMeetingFragment_to_meetingInfoFragment)
             }
 
         })
