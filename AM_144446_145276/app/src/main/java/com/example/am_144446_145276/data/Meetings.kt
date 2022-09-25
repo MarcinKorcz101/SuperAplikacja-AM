@@ -1,5 +1,8 @@
 package com.example.am_144446_145276.data
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 fun genMeetingList(): ArrayList<Meeting> {
     val tmpList : ArrayList<Meeting> = ArrayList<Meeting>()
     for (i in 1..3){
@@ -8,7 +11,7 @@ fun genMeetingList(): ArrayList<Meeting> {
             "Marcin",
             "Ukasz",
             "52.408054770716774, 16.93414070764418",
-            "30-09-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "Kurwa nie wiem"
         ))
         tmpList.add(Meeting(
@@ -16,7 +19,7 @@ fun genMeetingList(): ArrayList<Meeting> {
             "Ukasz",
             "Marcin",
             "52.408054770716774, 17.093421231",
-            "01-10-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "Kurwa nie wiem"
         ))
         tmpList.add(Meeting(
@@ -24,7 +27,7 @@ fun genMeetingList(): ArrayList<Meeting> {
             "Michal",
             "Wojtek",
             "53.408054770716774, 16.93414070764418",
-            "29-09-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "aaaaaaaaaaaaaaaaaaaaaa"
         ))
     }
@@ -38,7 +41,7 @@ fun genMeetingList2(): ArrayList<Meeting> {
             "Martyna",
             "Agata",
             "52.408054770716774, 16.93414070764418",
-            "29-09-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "Kurwa nie wiem"
         ))
         tmpList.add(Meeting(
@@ -46,7 +49,7 @@ fun genMeetingList2(): ArrayList<Meeting> {
             "Mati",
             "Dawid",
             "52.408054770716774, 17.093421231",
-            "29-09-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "Kurwa nie wiem"
         ))
         tmpList.add(Meeting(
@@ -54,7 +57,7 @@ fun genMeetingList2(): ArrayList<Meeting> {
             "Michal",
             "Alex",
             "53.408054770716774, 16.93414070764418",
-            "29-09-2022",
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM")),
             "aaaaaaaaaaaaaaaaaaaaaa"
         ))
     }
