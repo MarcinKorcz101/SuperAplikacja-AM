@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val sharedHelper = SharedPreferencesHelper(this)
+        supportActionBar?.hide()
 
         val loggedUser = sharedHelper.getLoggedUser()
         if (loggedUser.getString("username") == "") {

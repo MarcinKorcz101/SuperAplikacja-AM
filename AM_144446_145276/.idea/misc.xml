@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/layout/activity_login.xml" value="0.10344827586206896" />
+        <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2595" />
+        <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/layout/activity_login.xml" value="0.18931159420289856" />
         <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/layout/fragment_add_meeting.xml" value="0.25416666666666665" />
         <entry key="..\:/AM-Projekt/SuperAplikacja-AM/AM_144446_145276/app/src/main/res/layout/fragment_join_meeting.xml" value="0.19427083333333334" />
