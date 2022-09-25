@@ -67,7 +67,8 @@ class JoinMeetingFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 //TODO: TUTAJ ZMIANA FRAGMENTU
                 println(position)
-                Navigation.findNavController(view).navigate(R.id.action_joinMeetingFragment_to_meetingInfoFragment)
+                val action = JoinMeetingFragmentDirections.actionJoinMeetingFragmentToMeetingInfoFragment(meetings[position])
+                Navigation.findNavController(view).navigate(action)
             }
 
         })

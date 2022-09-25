@@ -34,6 +34,7 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
         val currentItem = meetingList[position]
         holder.username.text = currentItem.hostName
         holder.details.text = currentItem.details
+        holder.meetingDateView.text = currentItem.dateTime
     }
 
     override fun getItemCount(): Int {
@@ -44,6 +45,7 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
     {
         val username : TextView = itemView.findViewById(R.id.item_username)
         val details : TextView = itemView.findViewById(R.id.item_city)
+        val meetingDateView : TextView = itemView.findViewById(R.id.item_date)
 
         init {
             itemView.setOnClickListener {

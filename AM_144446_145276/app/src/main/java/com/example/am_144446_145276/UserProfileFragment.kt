@@ -7,8 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import org.json.JSONObject
+import java.time.DateTimeException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,7 +49,34 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val logoutButton = view.findViewById<Button>(R.id.logout_button)
+        val profileNameText = view.findViewById<TextView>(R.id.profile_name)
+        val profile_created_atText = view.findViewById<TextView>(R.id.profile_created_at)
+        val lichess_placeholderText = view.findViewById<TextView>(R.id.lichess_placeholder)
+        val stats_placeholderText = view.findViewById<TextView>(R.id.stats_placeholder)
+        val lichessInfoView = view.findViewById<LinearLayout>(R.id.lichessInfo)
+        val sharedHelper = SharedPreferencesHelper(requireContext())
+        val loggedUser = sharedHelper.getLoggedUser()
 
+
+        profileNameText.text = loggedUser.getString("username")
+
+        //CreatedAt
+        val formater = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val createDateText = loggedUser.getString("createDate")
+        val parsedDate = LocalDateTime.parse(createDateText, DateTimeFormatter.ISO_DATE_TIME)
+        val formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        profile_created_atText.text = "Account created: $formattedDate"
+
+        //Lichess
+        var lichessNick = loggedUser.getString("lichessNick")
+        if (lichessNick == "null") {
+            lichessNick = "No Lichess Account Attached"
+        }
+        lichess_placeholderText.text = lichessNick
+        //TODO dodanie konta Lichess
+        lichessInfoView.setOnClickListener(){
+            println("dodaj konto")
+        }
         logoutButton.setOnClickListener() {
             context?.let { SharedPreferencesHelper(it) }
                 ?.putLoggedUser(JSONObject("""{username: ""}"""))

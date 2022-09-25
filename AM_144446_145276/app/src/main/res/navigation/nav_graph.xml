@@ -39,11 +39,10 @@
     <fragment
         android:id="@+id/meetingInfoFragment"
         android:name="com.example.am_144446_145276.MeetingInfoFragment"
-        android:label="fragment_meeting_info"
-        tools:layout="@layout/fragment_meeting_info" >
+        android:label="Meeting details"
+        tools:layout="@layout/fragment_meeting_info">
         <argument
-            android:name="TestVal"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:name="currentMeeting"
+            app:argType="com.example.am_144446_145276.data.Meeting" />
     </fragment>
 </navigation>

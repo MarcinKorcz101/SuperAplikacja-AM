@@ -6,15 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MeetingInfoFragment">
 
-    <EditText
-        android:id="@+id/editTextDate2"
+    <TextView
+        android:id="@+id/meetingDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:clickable="false"
-        android:ems="10"
-        android:inputType="date"
+        android:layout_marginTop="48dp"
+        android:text="25-09-2022 15:30"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,13 +21,13 @@
         android:id="@+id/HostName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="HostName"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate2" />
+        app:layout_constraintTop_toBottomOf="@+id/meetingDateText" />
 
     <TextView
         android:id="@+id/vsText"

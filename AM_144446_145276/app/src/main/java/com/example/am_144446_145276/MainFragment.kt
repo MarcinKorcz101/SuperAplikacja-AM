@@ -65,7 +65,10 @@ class MainFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 //TODO: TUTAJ ZMIANA FRAGMENTU
                 println(position)
-                Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_meetingInfoFragment)
+
+                val action = MainFragmentDirections.actionMainFragmentToMeetingInfoFragment(meetings[position])
+
+                Navigation.findNavController(view).navigate(action)
             }
 
         })
