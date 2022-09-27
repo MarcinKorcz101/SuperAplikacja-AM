@@ -1,5 +1,6 @@
 package com.example.am_144446_145276
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
 import com.example.am_144446_145276.data.genMeetingList
+import com.example.am_144446_145276.helpers.RestHelper
+import com.example.am_144446_145276.helpers.SharedPreferencesHelper
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +36,8 @@ class MainFragment : Fragment() {
     private lateinit var adapter: MyMeetingsAdapter
     private lateinit var recyclerView: RecyclerView
 //    private lateinit var meetingsArrayList: ArrayList<Meeting>
+
+    val restHelper = RestHelper()
 
     lateinit var meetings : ArrayList<Meeting>
 
@@ -54,24 +60,33 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        meetings = genMeetingList()
         val layoutManager = LinearLayoutManager(context)
+
         recyclerView = view.findViewById(R.id.myMeetingRecycler)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = MyMeetingsAdapter(meetings)
-        recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                //TODO: TUTAJ ZMIANA FRAGMENTU
-                println(position)
-
-                val action = MainFragmentDirections.actionMainFragmentToMeetingInfoFragment(meetings[position])
-
-                Navigation.findNavController(view).navigate(action)
+        val sharedHelper = SharedPreferencesHelper(requireContext())
+        val loggedUser = sharedHelper.getLoggedUser()
+        Thread(){
+            run {
+                meetings = restHelper.getFutureGamesUser(loggedUser.getString("username"))
             }
+            activity?.runOnUiThread {
+                adapter = MyMeetingsAdapter(meetings)
+                recyclerView.adapter = adapter
+                adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+                    override fun onItemClick(position: Int) {
+                        //TODO: TUTAJ ZMIANA FRAGMENTU
+                        println(position)
 
-        })
+                        val action = MainFragmentDirections.actionMainFragmentToMeetingInfoFragment(meetings[position])
+
+                        Navigation.findNavController(view).navigate(action)
+                    }
+
+                })
+            }
+        }.start()
     }
 
     companion object {

@@ -1,13 +1,13 @@
 package com.example.am_144446_145276
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import org.json.JSONArray
@@ -101,8 +101,8 @@ class LoginActivity : AppCompatActivity() {
                                 if (pass == user.getJSONObject(0).getString("password")) {
                                     sharedHelper.putLoggedUser(JSONObject(user[0].toString()))
                                     val intent = Intent(this, MainActivity::class.java)
+                                    moveTaskToBack(true);
                                     startActivity(intent)
-                                    finish()
                                 } else {
                                     Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT)
                                         .show()
@@ -118,5 +118,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
 }

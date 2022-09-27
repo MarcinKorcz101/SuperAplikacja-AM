@@ -3,6 +3,7 @@ package com.example.am_144446_145276.helpers
 import com.example.am_144446_145276.api.RestApiService
 import com.example.am_144446_145276.data.*
 import org.json.JSONArray
+import org.json.JSONObject
 import org.json.JSONTokener
 import java.net.URL
 
@@ -11,7 +12,24 @@ class RestHelper {
     val baseURL = "http://theruddy0709.net:3000/"
 //    private val baseURL = "http://192.168.100.203:3000/"
 
-    val apiService = RestApiService()
+    private val apiService = RestApiService()
+
+    private fun arrayJSONToMeetingConverter(jsonArray: JSONArray): ArrayList<Meeting> {
+        val tmpList : ArrayList<Meeting> = ArrayList()
+        for (i in 0 until jsonArray.length()){
+            tmpList.add(
+                Meeting(
+                    jsonArray.getJSONObject(i).getLong("idgames"),
+                    jsonArray.getJSONObject(i).getString("host"),
+                    jsonArray.getJSONObject(i).getString("opponent"),
+                    jsonArray.getJSONObject(i).getString("coords"),
+                    jsonArray.getJSONObject(i).getString("date").dropLast(8),
+                    jsonArray.getJSONObject(i).getString("details")
+                )
+            )
+        }
+        return tmpList
+    }
 
     fun addUser(username: String, pass: String){
         val userInfo = UserInfo(username, pass)
@@ -93,9 +111,15 @@ class RestHelper {
         return JSONTokener(body).nextValue() as JSONArray
     }
 
-    fun getFutureGamesUser(username: String): JSONArray{
-        val body = URL(baseURL + "futuregames/${username}").readText()
+    fun getEmptyGames(): JSONArray{
+        val body = URL(baseURL + "emptygames").readText()
         return JSONTokener(body).nextValue() as JSONArray
+    }
+
+    fun getFutureGamesUser(username: String): ArrayList<Meeting>{
+        val body = URL(baseURL + "futuregames/${username}").readText()
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
     }
 
     fun getAllGamesWithUser(username: String): JSONArray{
