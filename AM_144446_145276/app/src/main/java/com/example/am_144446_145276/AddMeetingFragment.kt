@@ -114,9 +114,10 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinutes = minute
-        selectedDateTime = LocalDateTime.parse("$savedDay-$savedMonth-$savedYear $savedHour:$savedMinutes",
-            DateTimeFormatter.ofPattern("d-M-y H:m"))
-        val dateTimeStr = selectedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm"))
+        selectedDateTime = LocalDateTime.parse("${savedDay.toString().padStart(2,'0')}-${savedMonth.toString().padStart(2,'0')}-${savedYear.toString().padStart(2,'0')} ${savedHour.toString().padStart(2,'0')}:${savedMinutes.toString().padStart(2,'0')}",
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
+        val dateTimeStr = selectedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+        println(dateTimeStr)
         requireView().findViewById<TextView>(R.id.dateOfMeeting).text =
             "Date of meeting: $dateTimeStr"
     }
