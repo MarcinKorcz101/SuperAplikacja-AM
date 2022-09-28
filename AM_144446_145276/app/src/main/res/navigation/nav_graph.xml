@@ -14,6 +14,9 @@
             android:id="@+id/action_userProfileFragment_to_meetingInfoFragment"
             app:popUpTo="@id/userProfileFragment"
             app:destination="@id/meetingInfoFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_addLichessAccountFragment"
+            app:destination="@id/addLichessAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -54,4 +57,9 @@
             android:name="currentMeeting"
             app:argType="com.example.am_144446_145276.data.Meeting" />
     </fragment>
+    <fragment
+        android:id="@+id/addLichessAccountFragment"
+        android:name="com.example.am_144446_145276.AddLichessAccountFragment"
+        android:label="Add Lichess Account"
+        tools:layout="@layout/fragment_add_lichess_account" />
 </navigation>

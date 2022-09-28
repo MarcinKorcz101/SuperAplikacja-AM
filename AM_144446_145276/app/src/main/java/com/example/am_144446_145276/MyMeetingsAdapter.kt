@@ -42,6 +42,8 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
         var result = currentItem.result
         if(result == "null"){
             result = "in progress"
+        }else{
+            result = "Result: $result"
         }
         holder.result.text = result
     }

@@ -1,14 +1,18 @@
 package com.example.am_144446_145276
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +20,9 @@ import com.example.am_144446_145276.data.Meeting
 import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import org.json.JSONObject
-import java.time.DateTimeException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +43,8 @@ class UserProfileFragment : Fragment() {
     private lateinit var adapter: MyMeetingsAdapter
     private lateinit var recyclerView: RecyclerView
     lateinit var userJson : JSONObject
-    lateinit var meetings : ArrayList<Meeting>
+    var meetings : ArrayList<Meeting> = ArrayList<Meeting>()
+    private lateinit var lichessNick: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +77,10 @@ class UserProfileFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewProfile)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-
+        adapter = MyMeetingsAdapter(meetings)
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {}})
         profileNameText.text = loggedUser.getString("username")
 
         //CreatedAt
@@ -81,34 +89,35 @@ class UserProfileFragment : Fragment() {
         val parsedDate = LocalDateTime.parse(createDateText, DateTimeFormatter.ISO_DATE_TIME)
         val formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         profile_created_atText.text = "Account created: $formattedDate"
-
+        Thread(){
+            run {
+                meetings = restHelper.getResolvedGamesUser(loggedUser.getString("username"))
+            }
+            activity?.runOnUiThread {
+                //recyclerView
+                adapter = MyMeetingsAdapter(meetings)
+                recyclerView.adapter = adapter
+                adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+                    override fun onItemClick(position: Int) {
+                        //TODO: TUTAJ ZMIANA FRAGMENTU
+                        println(position)
+                        val action = UserProfileFragmentDirections.actionUserProfileFragmentToMeetingInfoFragment(meetings[position])
+                        Navigation.findNavController(view).navigate(action)
+                    }
+                })
+            }
+        }.start()
         //Lichess
         var lichessNick = loggedUser.getString("lichessNick")
-        if (lichessNick != "null") {
-            lichessNick = "No Lichess Account Attached"
+        if (lichessNick == "null") {
+            lichessNick = "No Lichess Account Attached\n(click to attach account)"
         }else{
             Thread(){
                 run {
 //                    userJson = restHelper.getLichessUserInfo(lichessNick)
                     userJson = restHelper.getLichessUserInfo("MarcinekZawadiaka")
-                    meetings = restHelper.getResolvedGamesUser(loggedUser.getString("username"))
                 }
                 activity?.runOnUiThread {
-//                    println(userJson.toString())
-                    //recyclerView
-                    adapter = MyMeetingsAdapter(meetings)
-                    recyclerView.adapter = adapter
-                    adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
-                        override fun onItemClick(position: Int) {
-                            //TODO: TUTAJ ZMIANA FRAGMENTU
-                            println(position)
-
-                            val action = UserProfileFragmentDirections.actionUserProfileFragmentToMeetingInfoFragment(meetings[position])
-
-                            Navigation.findNavController(view).navigate(action)
-                        }
-
-                    })
                     //lichess
                     val lichessProfileURL = userJson.getString("url")
                     val perfs = userJson.getJSONObject("perfs")
@@ -121,8 +130,28 @@ class UserProfileFragment : Fragment() {
         }
         lichess_placeholderText.text = lichessNick
         //TODO dodanie konta Lichess
-        lichessInfoView.setOnClickListener(){
-            println("dodaj konto")
+        println(lichessNick)
+        if (lichessNick == "No Lichess Account Attached\n" +
+            "(click to attach account)") {
+            lichessInfoView.setOnClickListener(){
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Attach Lichess account")
+// Set up the input
+                val input = EditText(requireContext())
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.inputType = InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+// Set up the buttons
+                builder.setPositiveButton("OK",
+                    DialogInterface.OnClickListener { dialog, which -> lichessNick = input.text.toString()
+                        println(lichessNick)
+                        restHelper.updateUser(loggedUser.getString("username"), lichessNick)
+                    }
+                )
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+                builder.show()
+            }
         }
         logoutButton.setOnClickListener() {
             context?.let { SharedPreferencesHelper(it) }
