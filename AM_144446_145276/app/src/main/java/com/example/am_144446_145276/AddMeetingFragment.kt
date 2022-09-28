@@ -73,6 +73,7 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
                 tmpMap,
                 detailsText.text.toString()
             )
+            getActivity()?.onBackPressed();
         }
         pickDate(view)
 

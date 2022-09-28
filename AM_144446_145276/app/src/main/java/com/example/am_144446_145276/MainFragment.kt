@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
-import com.example.am_144446_145276.data.genMeetingList
+//import com.example.am_144446_145276.data.genMeetingList
 import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import org.json.JSONObject

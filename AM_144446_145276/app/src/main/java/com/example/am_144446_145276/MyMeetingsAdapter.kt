@@ -3,7 +3,6 @@ package com.example.am_144446_145276
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
@@ -33,8 +32,18 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = meetingList[position]
         holder.username.text = currentItem.hostName
-        holder.details.text = currentItem.details
+//        holder.details.text = currentItem.details
         holder.meetingDateView.text = currentItem.dateTime
+        var opponentName = currentItem.opponent
+        if(opponentName == "null"){
+            opponentName = "-"
+        }
+        holder.opponentName.text = opponentName
+//        var result = currentItem.result
+//        if(result == "null"){
+//            result = "in progress"
+//        }
+//        holder.result.text = result
     }
 
     override fun getItemCount(): Int {
@@ -44,8 +53,10 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
     class MyViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView)
     {
         val username : TextView = itemView.findViewById(R.id.item_username)
-        val details : TextView = itemView.findViewById(R.id.item_city)
+//        val details : TextView = itemView.findViewById(R.id.vs_text)
         val meetingDateView : TextView = itemView.findViewById(R.id.item_date)
+        val opponentName: TextView = itemView.findViewById(R.id.opponent_username)
+        val result: TextView = itemView.findViewById(R.id.result_text)
 
         init {
             itemView.setOnClickListener {

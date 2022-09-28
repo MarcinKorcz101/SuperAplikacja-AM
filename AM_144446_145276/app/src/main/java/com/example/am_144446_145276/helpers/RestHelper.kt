@@ -122,6 +122,12 @@ class RestHelper {
         return JSONTokener(body).nextValue() as JSONArray
     }
 
+    fun getLichessUserInfo(username: String): JSONObject{
+        val body = URL("https://lichess.org/api/user/$username").readText()
+        println(body)
+        return JSONTokener(body).nextValue() as JSONObject
+    }
+
     fun getAllGames(): JSONArray{
         val body = URL(baseURL + "games").readText()
         return JSONTokener(body).nextValue() as JSONArray

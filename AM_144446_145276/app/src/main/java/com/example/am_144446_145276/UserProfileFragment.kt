@@ -9,6 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.am_144446_145276.data.Meeting
+import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import org.json.JSONObject
 import java.time.DateTimeException
@@ -29,6 +34,12 @@ class UserProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private val restHelper = RestHelper()
+    private lateinit var adapter: MyMeetingsAdapter
+    private lateinit var recyclerView: RecyclerView
+    lateinit var userJson : JSONObject
+    lateinit var meetings : ArrayList<Meeting>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +67,11 @@ class UserProfileFragment : Fragment() {
         val lichessInfoView = view.findViewById<LinearLayout>(R.id.lichessInfo)
         val sharedHelper = SharedPreferencesHelper(requireContext())
         val loggedUser = sharedHelper.getLoggedUser()
+        val layoutManager = LinearLayoutManager(context)
 
+        recyclerView = view.findViewById(R.id.recyclerViewProfile)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
 
         profileNameText.text = loggedUser.getString("username")
 
@@ -69,8 +84,40 @@ class UserProfileFragment : Fragment() {
 
         //Lichess
         var lichessNick = loggedUser.getString("lichessNick")
-        if (lichessNick == "null") {
+        if (lichessNick != "null") {
             lichessNick = "No Lichess Account Attached"
+        }else{
+            Thread(){
+                run {
+//                    userJson = restHelper.getLichessUserInfo(lichessNick)
+                    userJson = restHelper.getLichessUserInfo("MarcinekZawadiaka")
+                    meetings = restHelper.getResolvedGamesUser(loggedUser.getString("username"))
+                }
+                activity?.runOnUiThread {
+//                    println(userJson.toString())
+                    //recyclerView
+                    adapter = MyMeetingsAdapter(meetings)
+                    recyclerView.adapter = adapter
+                    adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            //TODO: TUTAJ ZMIANA FRAGMENTU
+                            println(position)
+
+                            val action = UserProfileFragmentDirections.actionUserProfileFragmentToMeetingInfoFragment(meetings[position])
+
+                            Navigation.findNavController(view).navigate(action)
+                        }
+
+                    })
+                    //lichess
+                    val lichessProfileURL = userJson.getString("url")
+                    val perfs = userJson.getJSONObject("perfs")
+                    val classicalRank = perfs.getJSONObject("classical").getString("rating")
+                    val rapidRank = perfs.getJSONObject("rapid").getString("rating")
+                    val blitzRank = perfs.getJSONObject("blitz").getString("rating")
+                    lichess_placeholderText.text = "Lichess Stats:\nUsername: ${lichessNick}\nClassical rating: ${classicalRank}\nRapid rating: ${rapidRank}\nBlitz rating: ${blitzRank}"
+                }
+            }.start()
         }
         lichess_placeholderText.text = lichessNick
         //TODO dodanie konta Lichess
