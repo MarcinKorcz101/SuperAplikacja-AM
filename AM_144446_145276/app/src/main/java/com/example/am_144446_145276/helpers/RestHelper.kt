@@ -27,7 +27,25 @@ class RestHelper {
                     jsonArray.getJSONObject(i).getString("date").dropLast(8)
                         .replace("T", " ")
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                    jsonArray.getJSONObject(i).getString("details")
+                    jsonArray.getJSONObject(i).getString("details"),
+                    jsonArray.getJSONObject(i).getString("result")
+                )
+            )
+        }
+        return tmpList
+    }
+
+    private fun arrayJSONToUserConverter(jsonArray: JSONArray): ArrayList<User> {
+        val tmpList : ArrayList<User> = ArrayList()
+        for (i in 0 until jsonArray.length()){
+            tmpList.add(
+                User(
+                    jsonArray.getJSONObject(i).getString("username"),
+                    jsonArray.getJSONObject(i).getString("password"),
+                    jsonArray.getJSONObject(i).getString("lichessNick"),
+                    jsonArray.getJSONObject(i).getString("createDate").dropLast(8)
+                        .replace("T", " ")
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 )
             )
         }
@@ -120,8 +138,26 @@ class RestHelper {
         return arrayJSONToMeetingConverter(jsonArray)
     }
 
+    fun getEmptyGamesUser(username: String): ArrayList<Meeting>{
+        val body = URL(baseURL + "emptygames/${username}").readText()
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
+    }
+
     fun getFutureGamesUser(username: String): ArrayList<Meeting>{
         val body = URL(baseURL + "futuregames/${username}").readText()
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
+    }
+
+    fun getResolvedGamesUser(username: String): ArrayList<Meeting>{
+        val body = URL(baseURL + "resolvedgames/${username}").readText()
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
+    }
+
+    fun getNotResolvedGamesUser(username: String): ArrayList<Meeting>{
+        val body = URL(baseURL + "notresolvedgames/${username}").readText()
         val jsonArray = JSONTokener(body).nextValue() as JSONArray
         return arrayJSONToMeetingConverter(jsonArray)
     }

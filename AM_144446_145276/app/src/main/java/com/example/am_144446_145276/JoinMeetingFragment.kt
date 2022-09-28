@@ -13,6 +13,7 @@ import com.example.am_144446_145276.data.Meeting
 import com.example.am_144446_145276.data.genMeetingList
 import com.example.am_144446_145276.data.genMeetingList2
 import com.example.am_144446_145276.helpers.RestHelper
+import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,9 +64,12 @@ class JoinMeetingFragment : Fragment() {
         recyclerView = view.findViewById(R.id.MeetingsNearbyList)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
+        val sharedHelper = SharedPreferencesHelper(requireContext())
+        val loggedUser = sharedHelper.getLoggedUser()
+
         Thread(){
             run {
-                meetings = restHelper.getEmptyGames()
+                meetings = restHelper.getEmptyGamesUser(loggedUser.getString("username"))
             }
             activity?.runOnUiThread {
                 adapter = MyMeetingsAdapter(meetings)

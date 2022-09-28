@@ -69,7 +69,7 @@ class MainFragment : Fragment() {
         val loggedUser = sharedHelper.getLoggedUser()
         Thread(){
             run {
-                meetings = restHelper.getFutureGamesUser(loggedUser.getString("username"))
+                meetings = restHelper.getNotResolvedGamesUser(loggedUser.getString("username"))
             }
             activity?.runOnUiThread {
                 adapter = MyMeetingsAdapter(meetings)

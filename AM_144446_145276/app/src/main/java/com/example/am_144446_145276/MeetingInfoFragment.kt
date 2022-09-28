@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
 import com.example.am_144446_145276.data.Meeting
+import com.example.am_144446_145276.helpers.RestHelper
 import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +27,8 @@ class MeetingInfoFragment : Fragment() {
     private var param2: String? = null
     private val args by navArgs<MeetingInfoFragmentArgs>()
 
+    private val restHelper = RestHelper()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,11 +45,11 @@ class MeetingInfoFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_meeting_info, container, false)
         val meetingDateText = view.findViewById<TextView>(R.id.meetingDateText)
         val meetingHostnameText = view.findViewById<TextView>(R.id.HostName)
-        val meetingOponentText = view.findViewById<TextView>(R.id.oponentName)
+        val meetingOpponentText = view.findViewById<TextView>(R.id.opponentName)
 
         meetingDateText.text = args.currentMeeting.dateTime
         meetingHostnameText.text = args.currentMeeting.hostName
-        meetingOponentText.text = args.currentMeeting.oponent
+        meetingOpponentText.text = if (args.currentMeeting.opponent == "null") "" else args.currentMeeting.opponent
 
         return view
     }

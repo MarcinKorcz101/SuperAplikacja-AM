@@ -10,8 +10,9 @@ import java.time.chrono.ChronoLocalDateTime
 data class Meeting(
     val id: Long,
     val hostName: String,
-    val oponent: String,
+    val opponent: String,
     val gameCoords: String,
     val dateTime: String,
-    val details: String
+    val details: String,
+    val result: String
 ): Parcelable
