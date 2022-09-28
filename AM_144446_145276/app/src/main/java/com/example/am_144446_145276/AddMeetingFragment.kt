@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
+import com.example.am_144446_145276.helpers.RestHelper
+import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -56,7 +58,22 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_meeting, container, false)
+        val createMeetingBtn = view.findViewById<Button>(R.id.createMeetingBtn)
+        val detailsText = view.findViewById<TextView>(R.id.detailsOfMeeting)
+        val tmpMap = "52.5466686765, 19.23243253"
+        val restHelper = RestHelper()
+        val sharedHelper = SharedPreferencesHelper(requireContext())
+        val loggedUser = sharedHelper.getLoggedUser()
+        val username = loggedUser.getString("username")
 
+        createMeetingBtn.setOnClickListener{
+            restHelper.addGame(
+                username,
+                selectedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                tmpMap,
+                detailsText.text.toString()
+            )
+        }
         pickDate(view)
 
         return view
