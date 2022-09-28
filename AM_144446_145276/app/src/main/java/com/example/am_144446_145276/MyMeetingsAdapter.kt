@@ -39,11 +39,13 @@ class MyMeetingsAdapter(private val meetingList : ArrayList<Meeting>) : Recycler
             opponentName = "-"
         }
         holder.opponentName.text = opponentName
-//        var result = currentItem.result
-//        if(result == "null"){
-//            result = "in progress"
-//        }
-//        holder.result.text = result
+        var result = currentItem.result
+        if(result == "null"){
+            result = "in progress"
+        }else{
+            result = "Result: $result"
+        }
+        holder.result.text = result
     }
 
     override fun getItemCount(): Int {

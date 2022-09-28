@@ -36,7 +36,7 @@ class JoinMeetingFragment : Fragment() {
 
     private val restHelper = RestHelper()
 
-    lateinit var meetings : ArrayList<Meeting>
+    var meetings : ArrayList<Meeting> = ArrayList<Meeting>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,10 @@ class JoinMeetingFragment : Fragment() {
         recyclerView = view.findViewById(R.id.MeetingsNearbyList)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
+        adapter = MyMeetingsAdapter(meetings)
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {}})
         val sharedHelper = SharedPreferencesHelper(requireContext())
         val loggedUser = sharedHelper.getLoggedUser()
 
