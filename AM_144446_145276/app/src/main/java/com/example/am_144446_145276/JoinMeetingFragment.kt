@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.am_144446_145276.data.Meeting
 import com.example.am_144446_145276.data.genMeetingList
 import com.example.am_144446_145276.data.genMeetingList2
+import com.example.am_144446_145276.helpers.RestHelper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +32,8 @@ class JoinMeetingFragment : Fragment() {
     private lateinit var adapter: MyMeetingsAdapter
     private lateinit var recyclerView: RecyclerView
 //    private lateinit var meetingsArrayList: ArrayList<Meeting>
+
+    private val restHelper = RestHelper()
 
     lateinit var meetings : ArrayList<Meeting>
 
@@ -56,22 +59,27 @@ class JoinMeetingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        meetings = genMeetingList2()
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.MeetingsNearbyList)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = MyMeetingsAdapter(meetings)
-        recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                //TODO: TUTAJ ZMIANA FRAGMENTU
-                println(position)
-                val action = JoinMeetingFragmentDirections.actionJoinMeetingFragmentToMeetingInfoFragment(meetings[position])
-                Navigation.findNavController(view).navigate(action)
+        Thread(){
+            run {
+                meetings = restHelper.getEmptyGames()
             }
+            activity?.runOnUiThread {
+                adapter = MyMeetingsAdapter(meetings)
+                recyclerView.adapter = adapter
+                adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
+                    override fun onItemClick(position: Int) {
+                        println(position)
+                        val action = JoinMeetingFragmentDirections.actionJoinMeetingFragmentToMeetingInfoFragment(meetings[position])
+                        Navigation.findNavController(view).navigate(action)
+                    }
 
-        })
+                })
+            }
+        }.start()
     }
 
 

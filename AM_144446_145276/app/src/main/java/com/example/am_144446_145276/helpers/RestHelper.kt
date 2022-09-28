@@ -6,6 +6,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.net.URL
+import java.time.format.DateTimeFormatter
 
 class RestHelper {
 
@@ -23,7 +24,9 @@ class RestHelper {
                     jsonArray.getJSONObject(i).getString("host"),
                     jsonArray.getJSONObject(i).getString("opponent"),
                     jsonArray.getJSONObject(i).getString("coords"),
-                    jsonArray.getJSONObject(i).getString("date").dropLast(8),
+                    jsonArray.getJSONObject(i).getString("date").dropLast(8)
+                        .replace("T", " ")
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                     jsonArray.getJSONObject(i).getString("details")
                 )
             )
@@ -111,9 +114,10 @@ class RestHelper {
         return JSONTokener(body).nextValue() as JSONArray
     }
 
-    fun getEmptyGames(): JSONArray{
+    fun getEmptyGames(): ArrayList<Meeting>{
         val body = URL(baseURL + "emptygames").readText()
-        return JSONTokener(body).nextValue() as JSONArray
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
     }
 
     fun getFutureGamesUser(username: String): ArrayList<Meeting>{

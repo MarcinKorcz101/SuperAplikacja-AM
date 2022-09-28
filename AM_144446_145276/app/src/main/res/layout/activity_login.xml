@@ -18,8 +18,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="181dp"
-            app:srcCompat="@drawable/logo"
-            android:contentDescription="@string/logo_png" />
+            app:srcCompat="@drawable/logo_transparent"
+            android:contentDescription="@string/logo_transparent_png" />
 
         <EditText
             android:id="@+id/username"

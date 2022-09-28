@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 //    private lateinit var meetingsArrayList: ArrayList<Meeting>
 
-    val restHelper = RestHelper()
+    private val restHelper = RestHelper()
 
     lateinit var meetings : ArrayList<Meeting>
 

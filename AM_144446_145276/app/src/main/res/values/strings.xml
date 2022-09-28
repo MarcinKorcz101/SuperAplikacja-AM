@@ -8,4 +8,5 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="logo_png">logo-png</string>
+    <string name="logo_transparent_png">logo_transparent-png</string>
 </resources>
