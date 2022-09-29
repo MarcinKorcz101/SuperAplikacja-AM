@@ -21,17 +21,20 @@
 
             <TextView
                 android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Nazwa konta"
-                android:textSize="24dp" />
+                android:text="User name"
+                android:textSize="32dp"
+                android:background="@drawable/border"/>
 
             <TextView
                 android:id="@+id/profile_created_at"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Data utworzenia"
-                android:textSize="18dp" />
+                android:text="account created"
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +52,7 @@
                 android:id="@+id/lichess_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dane z Lichess"
+                android:text="Lichess data"
                 android:textSize="18dp" />
         </LinearLayout>
 
@@ -68,7 +71,9 @@
                 android:id="@+id/stats_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:text="Statystyki"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="Stats"
                 android:textSize="18dp" />
 
         </LinearLayout>
@@ -78,7 +83,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:paddingTop="5dp"
             android:background="@color/testGray"
+            android:gravity="center"
             android:text="Meetings history:"
             android:paddingStart="16dp"
             android:textSize="16dp"

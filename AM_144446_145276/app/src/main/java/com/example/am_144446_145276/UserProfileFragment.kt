@@ -144,12 +144,12 @@ class UserProfileFragment : Fragment() {
             lichessInfoView.setOnClickListener(){
                 val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                 builder.setTitle("Attach Lichess account")
-// Set up the input
+
                 val input = EditText(requireContext())
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+
                 input.inputType = InputType.TYPE_CLASS_TEXT
                 builder.setView(input)
-// Set up the buttons
+
                 builder.setPositiveButton("OK",
                     DialogInterface.OnClickListener { dialog, which -> lichessNick = input.text.toString()
                         println(lichessNick)

@@ -52,6 +52,7 @@ class MeetingInfoFragment : Fragment() {
         val meetingDateText = view.findViewById<TextView>(R.id.meetingDateText)
         val meetingHostnameText = view.findViewById<TextView>(R.id.HostName)
         val meetingOpponentText = view.findViewById<TextView>(R.id.opponentName)
+        val detailsText = view.findViewById<TextView>(R.id.details_text)
 
         val hostResult = view.findViewById<Button>(R.id.result_host)
         val tieResult = view.findViewById<Button>(R.id.result_tie)
@@ -78,6 +79,7 @@ class MeetingInfoFragment : Fragment() {
         meetingDateText.text = args.currentMeeting.dateTime
         meetingHostnameText.text = args.currentMeeting.hostName
         meetingOpponentText.text = if (args.currentMeeting.opponent == "null") "" else args.currentMeeting.opponent
+        detailsText.text = args.currentMeeting.details
 
         hostResult.text = meetingHostnameText.text
         tieResult.text = "tie"

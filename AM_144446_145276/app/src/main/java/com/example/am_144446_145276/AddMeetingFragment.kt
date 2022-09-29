@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TextView
-import android.widget.TimePicker
+import android.widget.*
 import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import java.time.LocalDateTime
@@ -66,14 +63,31 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
         val loggedUser = sharedHelper.getLoggedUser()
         val username = loggedUser.getString("username")
 
+        val currentDate = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
         createMeetingBtn.setOnClickListener{
-            restHelper.addGame(
-                username,
-                selectedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                tmpMap,
-                detailsText.text.toString()
-            )
-            getActivity()?.onBackPressed();
+            if (detailsText.text.toString() == ""){
+                Toast.makeText(
+                    requireContext(),
+                    "Please attach details",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (currentDate.isAfter(selectedDateTime)) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please choose date after current date",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                restHelper.addGame(
+                    username,
+                    selectedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                    tmpMap,
+                    detailsText.text.toString()
+                )
+                getActivity()?.onBackPressed()
+            }
         }
         pickDate(view)
 
