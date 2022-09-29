@@ -3,6 +3,7 @@ package com.example.am_144446_145276
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -128,7 +129,11 @@ class UserProfileFragment : Fragment() {
                     val classicalRank = perfs.getJSONObject("classical").getString("rating")
                     val rapidRank = perfs.getJSONObject("rapid").getString("rating")
                     val blitzRank = perfs.getJSONObject("blitz").getString("rating")
-                    lichess_placeholderText.text = "Lichess Stats:\nUsername: ${lichessNick}\nClassical rating: ${classicalRank}\nRapid rating: ${rapidRank}\nBlitz rating: ${blitzRank}"
+                    val sourceString = "<b>Lichess Stats:</b> <br> Username: $lichessNick<br>" +
+                            "Classical rating: $classicalRank<br>" +
+                            "Rapid rating: $rapidRank<br>" +
+                            "Blitz rating: $blitzRank"
+                    lichess_placeholderText.text = Html.fromHtml(sourceString, Html.FROM_HTML_MODE_LEGACY)
                     lichessInfoView.setOnClickListener(){
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(lichessProfileURL)))
                     }

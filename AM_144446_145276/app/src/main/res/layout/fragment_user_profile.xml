@@ -21,6 +21,7 @@
 
             <TextView
                 android:id="@+id/profile_name"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="User name"
@@ -28,6 +29,7 @@
 
             <TextView
                 android:id="@+id/profile_created_at"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="account created"
@@ -47,6 +49,7 @@
 
             <TextView
                 android:id="@+id/lichess_placeholder"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lichess data"
@@ -66,6 +69,7 @@
 
             <TextView
                 android:id="@+id/stats_placeholder"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/border"
@@ -77,6 +81,7 @@
 
         <TextView
             android:id="@+id/textView3"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

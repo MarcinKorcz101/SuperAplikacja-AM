@@ -19,6 +19,7 @@
 
     <TextView
         android:id="@+id/dateOfMeeting"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date of meeting: 25.09.2022 20:00"
@@ -30,6 +31,7 @@
     <EditText
 
         android:id="@+id/detailsOfMeeting"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -47,6 +49,7 @@
     <EditText
 
         android:id="@+id/addressOfMeeting"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"

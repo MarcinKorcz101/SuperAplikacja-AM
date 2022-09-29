@@ -23,6 +23,7 @@
 
         <EditText
             android:id="@+id/username"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="24dp"
@@ -35,6 +36,7 @@
 
         <EditText
             android:id="@+id/password"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="24dp"
