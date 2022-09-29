@@ -30,7 +30,7 @@ class AddLichessAccountFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val restHelper = RestHelper()
-    lateinit var userJson : JSONObject
+    private var userJson : JSONObject = JSONObject()
     private lateinit var lichessNick: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +69,12 @@ class AddLichessAccountFragment : Fragment() {
                         userJson = restHelper.getLichessUserInfo(nick)
                     }catch (e: IOException){
                         errorAPI = true
-                    }finally {
-                        restHelper.updateUser(loggedUser.getString("username"), nick)
-                        sharedHelper.putLichessAccount(nick)
+                    }
+                    if(!errorAPI) {
+                        if(!userJson.has("error")){
+                            restHelper.updateUser(loggedUser.getString("username"), nick)
+                            sharedHelper.putLichessAccount(nick)
+                        }
                     }
                 }
                 activity?.runOnUiThread {
