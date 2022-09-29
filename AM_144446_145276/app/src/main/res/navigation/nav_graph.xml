@@ -12,8 +12,10 @@
         tools:layout="@layout/fragment_user_profile" >
         <action
             android:id="@+id/action_userProfileFragment_to_meetingInfoFragment"
+            app:destination="@id/meetingInfoFragment"
+            app:enterAnim="@anim/enter_info"
             app:popUpTo="@id/userProfileFragment"
-            app:destination="@id/meetingInfoFragment" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_userProfileFragment_to_addLichessAccountFragment"
             app:destination="@id/addLichessAccountFragment" />
@@ -25,9 +27,9 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_meetingInfoFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/mainFragment"
-            app:destination="@id/meetingInfoFragment" />
+            app:destination="@id/meetingInfoFragment"
+            app:enterAnim="@anim/enter_info"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMeetingFragment"
@@ -41,12 +43,15 @@
         tools:layout="@layout/fragment_join_meeting">
         <action
             android:id="@+id/action_joinMeetingFragment_to_addMeetingFragment"
+            app:destination="@id/addMeetingFragment"
             app:popUpTo="@id/joinMeetingFragment"
-            app:destination="@id/addMeetingFragment" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_joinMeetingFragment_to_meetingInfoFragment"
+            app:destination="@id/meetingInfoFragment"
+            app:enterAnim="@anim/enter_info"
             app:popUpTo="@id/joinMeetingFragment"
-            app:destination="@id/meetingInfoFragment" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/meetingInfoFragment"
