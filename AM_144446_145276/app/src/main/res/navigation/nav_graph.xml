@@ -35,7 +35,11 @@
         android:id="@+id/addMeetingFragment"
         android:name="com.example.am_144446_145276.AddMeetingFragment"
         android:label="Add meeting"
-        tools:layout="@layout/fragment_add_meeting" />
+        tools:layout="@layout/fragment_add_meeting" >
+        <action
+            android:id="@+id/action_addMeetingFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/joinMeetingFragment"
         android:name="com.example.am_144446_145276.JoinMeetingFragment"

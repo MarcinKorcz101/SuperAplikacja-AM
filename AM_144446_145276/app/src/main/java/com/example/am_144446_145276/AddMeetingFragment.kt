@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.Navigation
 import com.example.am_144446_145276.helpers.RestHelper
 import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import java.time.LocalDateTime
@@ -103,7 +104,7 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
                     addressText.text.toString(),
                     detailsText.text.toString()
                 )
-                getActivity()?.onBackPressed()
+                Navigation.findNavController(view).navigate(R.id.action_addMeetingFragment_to_mainFragment)
             }
         }
         pickDate(view)

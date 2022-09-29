@@ -80,7 +80,7 @@ class JoinMeetingFragment : Fragment() {
                 recyclerView.adapter = adapter
                 adapter.setOnItemClickListener(object : MyMeetingsAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        println(position)
+//                        println(position)
                         val action = JoinMeetingFragmentDirections.actionJoinMeetingFragmentToMeetingInfoFragment(meetings[position])
                         Navigation.findNavController(view).navigate(action)
                     }
