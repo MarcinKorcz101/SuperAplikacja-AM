@@ -120,7 +120,7 @@ class MeetingInfoFragment : Fragment() {
         }
 
         if (meetingOpponentText.text != "Click to join" &&
-            meetingOpponentText.text != "null" &&
+            args.currentMeeting.opponent != "null" &&
             loggedUser.getString("username") == meetingHostnameText.text.toString()){
             hostResult.visibility = View.VISIBLE
             tieResult.visibility = View.VISIBLE

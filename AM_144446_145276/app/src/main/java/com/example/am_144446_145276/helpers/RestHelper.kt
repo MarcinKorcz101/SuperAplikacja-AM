@@ -173,14 +173,22 @@ class RestHelper {
         return JSONTokener(body).nextValue() as JSONArray
     }
 
-    fun getAllGamesWonByUser(username: String): JSONArray{
+    fun getAllGamesWonByUser(username: String): ArrayList<Meeting>{
         val body = URL(baseURL + "games/${username}/won").readText()
-        return JSONTokener(body).nextValue() as JSONArray
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
     }
 
-    fun getAllGamesLostByUser(username: String): JSONArray{
+    fun getAllGamesLostByUser(username: String): ArrayList<Meeting>{
         val body = URL(baseURL + "games/${username}/lost").readText()
-        return JSONTokener(body).nextValue() as JSONArray
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
+    }
+
+    fun getAllGamesTiedByUser(username: String): ArrayList<Meeting>{
+        val body = URL(baseURL + "games/${username}/tied").readText()
+        val jsonArray = JSONTokener(body).nextValue() as JSONArray
+        return arrayJSONToMeetingConverter(jsonArray)
     }
 
     fun findGameById(id: String): JSONArray{

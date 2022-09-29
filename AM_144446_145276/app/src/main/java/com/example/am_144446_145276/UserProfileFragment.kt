@@ -45,6 +45,9 @@ class UserProfileFragment : Fragment() {
     lateinit var userJson : JSONObject
     var meetings : ArrayList<Meeting> = ArrayList<Meeting>()
     private lateinit var lichessNick: String
+    var gamesWon : ArrayList<Meeting> = ArrayList<Meeting>()
+    var gamesLost : ArrayList<Meeting> = ArrayList<Meeting>()
+    var gamesTied : ArrayList<Meeting> = ArrayList<Meeting>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +94,11 @@ class UserProfileFragment : Fragment() {
         profile_created_atText.text = "Account created: $formattedDate"
         Thread(){
             run {
-                meetings = restHelper.getResolvedGamesUser(loggedUser.getString("username"))
+                val username = loggedUser.getString("username")
+                meetings = restHelper.getResolvedGamesUser(username)
+                gamesWon = restHelper.getAllGamesWonByUser(username)
+                gamesLost = restHelper.getAllGamesLostByUser(username)
+                gamesTied = restHelper.getAllGamesTiedByUser(username)
             }
             activity?.runOnUiThread {
                 //recyclerView
@@ -105,6 +112,7 @@ class UserProfileFragment : Fragment() {
                         Navigation.findNavController(view).navigate(action)
                     }
                 })
+                stats_placeholderText.text = "Wins: ${gamesWon.size} Losses: ${gamesLost.size} Ties: ${gamesTied.size}"
             }
         }.start()
         //Lichess
