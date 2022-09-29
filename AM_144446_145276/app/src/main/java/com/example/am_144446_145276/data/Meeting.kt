@@ -11,7 +11,7 @@ data class Meeting(
     val id: Long,
     val hostName: String,
     val opponent: String,
-    val gameCoords: String,
+    val address: String,
     val dateTime: String,
     val details: String,
     val result: String

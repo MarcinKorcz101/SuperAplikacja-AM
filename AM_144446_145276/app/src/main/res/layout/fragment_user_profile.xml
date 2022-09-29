@@ -22,16 +22,13 @@
             <TextView
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="User name"
-                android:textSize="32dp"
-                android:background="@drawable/border"/>
+                android:textSize="32dp" />
 
             <TextView
                 android:id="@+id/profile_created_at"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="account created"
                 android:textSize="14dp" />

@@ -23,7 +23,7 @@ class RestHelper {
                     jsonArray.getJSONObject(i).getLong("idgames"),
                     jsonArray.getJSONObject(i).getString("host"),
                     jsonArray.getJSONObject(i).getString("opponent"),
-                    jsonArray.getJSONObject(i).getString("coords"),
+                    jsonArray.getJSONObject(i).getString("address"),
                     jsonArray.getJSONObject(i).getString("date").dropLast(8)
                         .replace("T", " ")
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -64,8 +64,8 @@ class RestHelper {
         }
     }
 
-    fun addGame(host: String, date: String, coords: String, details: String){
-        val meetingInfo = MeetingInfo(host, date, coords, details)
+    fun addGame(host: String, date: String, address: String, details: String){
+        val meetingInfo = MeetingInfo(host, date, address, details)
 
         apiService.addMeeting(meetingInfo){
             if (it?.message != null){

@@ -15,7 +15,7 @@ data class UserInfo(
 data class MeetingInfo(
     @SerializedName("host") val host: String?,
     @SerializedName("date") val date: String?,
-    @SerializedName("coords") val coords: String?,
+    @SerializedName("address") val address: String?,
     @SerializedName("details") val details: String?
 )
 

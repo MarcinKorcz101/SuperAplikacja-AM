@@ -57,14 +57,13 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
         val view = inflater.inflate(R.layout.fragment_add_meeting, container, false)
         val createMeetingBtn = view.findViewById<Button>(R.id.createMeetingBtn)
         val detailsText = view.findViewById<TextView>(R.id.detailsOfMeeting)
-        val tmpMap = "52.5466686765, 19.23243253"
+        val addressText = view.findViewById<TextView>(R.id.addressOfMeeting)
         val restHelper = RestHelper()
         val sharedHelper = SharedPreferencesHelper(requireContext())
         val loggedUser = sharedHelper.getLoggedUser()
         val username = loggedUser.getString("username")
 
         val currentDate = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
         createMeetingBtn.setOnClickListener{
             if (detailsText.text.toString() == ""){
@@ -73,17 +72,35 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
                     "Please attach details",
                     Toast.LENGTH_SHORT
                 ).show()
+            } else if (detailsText.text.toString().length > 255) {
+                Toast.makeText(
+                    requireContext(),
+                    "Details cannot exceed 255 characters",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else if (currentDate.isAfter(selectedDateTime)) {
                 Toast.makeText(
                     requireContext(),
                     "Please choose date after current date",
                     Toast.LENGTH_SHORT
                 ).show()
+            } else if (addressText.text.toString() == "") {
+                Toast.makeText(
+                    requireContext(),
+                    "Please attach address",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (addressText.text.toString().length > 100) {
+                Toast.makeText(
+                    requireContext(),
+                    "Address cannot exceed 100 characters",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 restHelper.addGame(
                     username,
                     selectedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                    tmpMap,
+                    addressText.text.toString(),
                     detailsText.text.toString()
                 )
                 getActivity()?.onBackPressed()
