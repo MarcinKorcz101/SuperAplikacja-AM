@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/splashScreenImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_transparent"
+        app:srcCompat="@drawable/ic_logo_transparent_vector"
         android:contentDescription="@string/logo_transparent_png"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
