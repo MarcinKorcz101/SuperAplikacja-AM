@@ -61,5 +61,9 @@
         android:id="@+id/addLichessAccountFragment"
         android:name="com.example.am_144446_145276.AddLichessAccountFragment"
         android:label="Add Lichess Account"
-        tools:layout="@layout/fragment_add_lichess_account" />
+        tools:layout="@layout/fragment_add_lichess_account" >
+        <action
+            android:id="@+id/action_addLichessAccountFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
 </navigation>

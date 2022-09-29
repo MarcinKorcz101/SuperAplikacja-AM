@@ -19,4 +19,13 @@ class SharedPreferencesHelper (context: Context) {
     fun getLoggedUser(): JSONObject{
         return JSONObject(preferences.getString(USER, """{username: ""}"""))
     }
+
+    fun putLichessAccount(lichessNick: String){
+        val user = JSONObject(preferences.getString(USER, """{username: ""}"""))
+        user.remove("lichessNick")
+        user.put("lichessNick", lichessNick)
+        val edit = preferences.edit()
+        edit.putString(USER, user.toString())
+        edit.apply()
+    }
 }

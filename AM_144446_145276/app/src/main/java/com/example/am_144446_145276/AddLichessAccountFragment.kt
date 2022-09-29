@@ -6,7 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.navigation.Navigation
+import com.example.am_144446_145276.helpers.RestHelper
+import com.example.am_144446_145276.helpers.SharedPreferencesHelper
 import com.google.android.material.textfield.TextInputEditText
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +29,9 @@ class AddLichessAccountFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val restHelper = RestHelper()
+    lateinit var userJson : JSONObject
+    private lateinit var lichessNick: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +47,47 @@ class AddLichessAccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_lichess_account, container, false)
-
+        val sharedHelper = SharedPreferencesHelper(requireContext())
+        val loggedUser = sharedHelper.getLoggedUser()
         val addbtn = view.findViewById<Button>(R.id.nickname_lichess_account)
         val lichessnickname = view.findViewById<TextInputEditText>(R.id.lichess_nickname_input)
-        //TODO dokoncz
+        addbtn.setOnClickListener() {
+            val nick = lichessnickname.text.toString()
+            var errorAPI = false
+            lateinit var user: JSONArray
+
+            if (nick == "") {
+                Toast.makeText(
+                    requireContext(),
+                    "Username can't be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            Thread(){
+                run {
+                    try {
+                        userJson = restHelper.getLichessUserInfo(nick)
+                    }catch (e: IOException){
+                        errorAPI = true
+                    }finally {
+                        restHelper.updateUser(loggedUser.getString("username"), nick)
+                        sharedHelper.putLichessAccount(nick)
+                    }
+                }
+                activity?.runOnUiThread {
+                    //lichess
+                    if (!errorAPI){
+                        Navigation.findNavController(view).navigate(R.id.action_addLichessAccountFragment_to_userProfileFragment)
+                    }else{
+                        Toast.makeText(
+                            requireContext(),
+                            "User not exists",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }.start()
+        }
 
         return view
     }

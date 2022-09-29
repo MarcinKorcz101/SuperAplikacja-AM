@@ -122,8 +122,8 @@ class UserProfileFragment : Fragment() {
         }else{
             Thread(){
                 run {
-//                    userJson = restHelper.getLichessUserInfo(lichessNick)
-                    userJson = restHelper.getLichessUserInfo("MarcinekZawadiaka")
+                    userJson = restHelper.getLichessUserInfo(lichessNick)
+//                    userJson = restHelper.getLichessUserInfo("MarcinekZawadiaka")
                 }
                 activity?.runOnUiThread {
                     //lichess
@@ -142,23 +142,24 @@ class UserProfileFragment : Fragment() {
         if (lichessNick == "No Lichess Account Attached\n" +
             "(click to attach account)") {
             lichessInfoView.setOnClickListener(){
-                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-                builder.setTitle("Attach Lichess account")
-
-                val input = EditText(requireContext())
-
-                input.inputType = InputType.TYPE_CLASS_TEXT
-                builder.setView(input)
-
-                builder.setPositiveButton("OK",
-                    DialogInterface.OnClickListener { dialog, which -> lichessNick = input.text.toString()
-                        println(lichessNick)
-                        restHelper.updateUser(loggedUser.getString("username"), lichessNick)
-                    }
-                )
-                builder.setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-                builder.show()
+                Navigation.findNavController(view).navigate(R.id.action_userProfileFragment_to_addLichessAccountFragment)
+//                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+//                builder.setTitle("Attach Lichess account")
+//// Set up the input
+//                val input = EditText(requireContext())
+//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//                input.inputType = InputType.TYPE_CLASS_TEXT
+//                builder.setView(input)
+//// Set up the buttons
+//                builder.setPositiveButton("OK",
+//                    DialogInterface.OnClickListener { dialog, which -> lichessNick = input.text.toString()
+//                        println(lichessNick)
+//                        restHelper.updateUser(loggedUser.getString("username"), lichessNick)
+//                    }
+//                )
+//                builder.setNegativeButton("Cancel",
+//                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+//                builder.show()
             }
         }
         logoutButton.setOnClickListener() {
