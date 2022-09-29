@@ -62,6 +62,7 @@ class AddMeetingFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimeP
         val restHelper = RestHelper()
         val sharedHelper = SharedPreferencesHelper(requireContext())
         val loggedUser = sharedHelper.getLoggedUser()
+        view.findViewById<TextView>(R.id.dateOfMeeting).text = "Date of meeting: ${selectedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}"
         val username = loggedUser.getString("username")
 
         val currentDate = LocalDateTime.now()
